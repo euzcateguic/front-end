@@ -1,0 +1,12 @@
+.listado-container {
+    border: 2px solid black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.btn-rmv{
+    margin-left: 1rem;
+    color: white;
+    background-color: red;
+    font-weight: 500;
+}

@@ -1,0 +1,25 @@
+
+<div *ngIf="!listado">
+    <span #cargando>
+      <ng-content select="[cargando]"></ng-content>
+    </span>
+    <span *ngIf="!cargando.innerHTML.trim()">
+      <img src="https://img1.picmix.com/output/stamp/normal/8/5/2/9/509258_fb107.gif">
+    </span>
+  </div>
+  <div *ngIf="listado?.length === 0">
+    <span #vacio>
+      <ng-content select="[vacio]"></ng-content>
+    </span>
+    <span *ngIf="!vacio.innerHTML.trim()">
+      <p>No hay peliculas para mostrar</p>      
+    </span>    
+  </div>
+
+  <ng-container *ngIf="listado && listado.length > 0">
+    <ng-content select="[contenido]">
+        
+    </ng-content>
+  </ng-container>
+  
+  

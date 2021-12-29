@@ -1,0 +1,20 @@
+
+<app-listado-generico [listado]="peliculas">
+    <ng-container contenido>
+        <div class="movies-container">
+            <div *ngFor="let pelicula of peliculas; let index = index" class="movie-container">
+                <a>
+                    <img [src]="pelicula.poster" alt="Poster" />
+                </a>
+                <p>
+                    <a>{{pelicula.titulo}} </a>
+                </p>
+                <div>
+                    <a mat-flat-button color="primary">Editar</a>
+                    <button mat-flat-button color="warn" type="button">Borrar</button>
+                </div>               
+                <app-rating (rated)="setRating($event)"></app-rating>
+            </div>
+        </div>        
+    </ng-container>
+</app-listado-generico>
