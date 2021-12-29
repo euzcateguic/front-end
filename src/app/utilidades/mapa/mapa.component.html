@@ -1,4 +1,7 @@
+
 <div    
     leaflet
-    [leafletOptions]="options">
+    [leafletOptions]="options"
+    (leafletClick)="manejarClick($event)"
+    [leafletLayers]="capas">
 </div>
