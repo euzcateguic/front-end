@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -11,16 +11,18 @@ export class InputMarkdownComponent implements OnInit {
   constructor() { }
   contentMarkdown = '';
 
+  @Input()
+  placeHolderTextArea: string = 'Texto'
+
   @Output()
-  changeMarkdown: EventEmitter<string> = new EventEmitter<string>();
+  changeMarkdown: EventEmitter<string> = new EventEmitter<string>();  
 
   ngOnInit(): void {
   }
 
-  inputTextArea(text: string) {
-    console.log(text);
-    this.contentMarkdown = text;
-    this.changeMarkdown.emit(text);
-  }
+  // inputTextArea(text: string) {
+  //   console.log(text);
+  //   this.contentMarkdown = text;    
+  // }
 
 }
