@@ -11,7 +11,7 @@ export class EditarGeneroComponent implements OnInit {
 
   constructor(private router: Router) { }  
 
-  modelo: generoCreacionDTO = { nombre: 'Drama'};
+  modelo: generoCreacionDTO = { name: 'Drama'};
   
 
   ngOnInit(): void {
