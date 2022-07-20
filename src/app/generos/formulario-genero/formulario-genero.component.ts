@@ -23,7 +23,7 @@ export class FormularioGeneroComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nombre: ['',{
+      name: ['',{
         validators: [Validators.required, Validators.minLength(3), primeraLetraMayuscula()]
       }] 
     });
@@ -35,7 +35,7 @@ export class FormularioGeneroComponent implements OnInit {
 
  
   obtenerErrorCampoNombre(){
-    var campo = this.form.get('nombre');
+    var campo = this.form.get('name');
 
     if(campo.hasError('required'))
     {
