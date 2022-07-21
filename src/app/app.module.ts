@@ -37,6 +37,8 @@ import { MapaComponent } from './utilidades/mapa/mapa.component';
 import { FormularioPeliculaComponent } from './peliculas/formulario-pelicula/formulario-pelicula.component';
 import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
 import { AutocompleteActoresComponent } from './actores/autocomplete-actores/autocomplete-actores.component';
+import { MostrarErroresComponent } from './utilidades/mostrar-errores/mostrar-errores.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { AutocompleteActoresComponent } from './actores/autocomplete-actores/aut
     MapaComponent,
     FormularioPeliculaComponent,
     SelectorMultipleComponent,
-    AutocompleteActoresComponent
+    AutocompleteActoresComponent,
+    MostrarErroresComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import { AutocompleteActoresComponent } from './actores/autocomplete-actores/aut
     MarkdownModule.forRoot(),
     LeafletModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
