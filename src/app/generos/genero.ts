@@ -3,6 +3,6 @@ export interface generoCreacionDTO {
 }
 
 export interface generoDTO {
-    id: number;
+    id: string;
     name: string;
 }
