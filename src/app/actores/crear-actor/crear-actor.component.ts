@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { parsearErroresAPI } from 'src/app/utilidades/utilidades';
 import { actorCreacionDTO } from '../actor';
+import { ActoresService } from '../actores.service';
 
 @Component({
   selector: 'app-crear-actor',
@@ -9,7 +11,9 @@ import { actorCreacionDTO } from '../actor';
 })
 export class CrearActorComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private actoresService: ActoresService) { }
+
+  errores: string[] = [];
 
   ngOnInit(): void {
     
@@ -17,7 +21,10 @@ export class CrearActorComponent implements OnInit {
 
   guardarCambios (actor: actorCreacionDTO){
     //...guarda los cambios
-    console.log(actor);
-    this.router.navigate(['/actores']);
+    this.actoresService.crear(actor)
+    .subscribe(() => {
+      this.router.navigate(['/actores']);
+    }, (error) => this.errores = parsearErroresAPI(error))
+    
   }
 }

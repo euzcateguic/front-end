@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { parsearErroresAPI } from 'src/app/utilidades/utilidades';
+
 import { generoCreacionDTO, generoDTO } from '../genero';
 import { GenerosService } from '../generos.service';
 
@@ -20,8 +21,7 @@ export class EditarGeneroComponent implements OnInit {
   modelo: generoDTO;  
   errores: string[] = [];
   
-  ngOnInit(): void {
-    console.log('Paso1');
+  ngOnInit(): void {    
     this.activatedRoute.params.subscribe((params) => {
       this.generoService.obtenerPorId(params.id)
       .subscribe(genero => {        

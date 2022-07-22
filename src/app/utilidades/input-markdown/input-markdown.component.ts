@@ -9,6 +9,7 @@ import { EventEmitter } from '@angular/core';
 export class InputMarkdownComponent implements OnInit {
 
   constructor() { }
+  @Input()
   contentMarkdown = '';
 
   @Input()
