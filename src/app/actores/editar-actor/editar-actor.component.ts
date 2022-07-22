@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { parsearErroresAPI } from 'src/app/utilidades/utilidades';
 import { actorCreacionDTO, actorDTO } from '../actor';
+import { ActoresService } from '../actores.service';
 
 @Component({
   selector: 'app-editar-actor',
@@ -9,23 +11,31 @@ import { actorCreacionDTO, actorDTO } from '../actor';
 })
 export class EditarActorComponent implements OnInit {
 
-  constructor(private router: Router,private activedRoute: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute, 
+    private actoresService: ActoresService) { }
 
-  modelo: actorDTO = {
-    nombre: 'Edward',
-    fechaNacimiento: new Date('1991-08-30'),
-    foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tom_Holland_by_Gage_Skidmore.jpg/220px-Tom_Holland_by_Gage_Skidmore.jpg'
-  };
+  modelo: actorDTO;
+  errores: string[] = [];
 
-  ngOnInit(): void {
-    this.activedRoute.params.subscribe(params => {
-      //alert(params.id);    
+ ngOnInit(): void {    
+    this.activatedRoute.params.subscribe((params) => {
+      this.actoresService.obtenerPorId(params.id)
+      .subscribe(genero => {        
+        this.modelo = genero;
+        console.log(this.modelo);
+      }, () => this.router.navigate(['/actores']))
     });
   }
 
-  guardarCambios (actor: actorCreacionDTO){
+
+  guardarCambios (genero: actorCreacionDTO){
     //...guarda los cambios
-    console.log(actor);
-    this.router.navigate(['/actores']);
+    this.actoresService.editar(this.modelo.id,genero)
+    .subscribe(() => {
+      this.router.navigate(['/actores']);
+    },(error) => this.errores = parsearErroresAPI(error));    
+    
   }
 }
