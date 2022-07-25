@@ -1,4 +1,8 @@
 export interface Coordenada {
-    latitud: number;
-    longitud: number;
+    latitude: number;
+    longitude: number;
+}
+
+export interface CoordenadaConMensaje extends Coordenada{
+    mensaje: string;
 }

@@ -1,7 +1,9 @@
+<!-- <app-mostrar-errores [errores]="errores" ></app-mostrar-errores> -->
+
 <form (submit)="OnSubmit()" [formGroup]="form">
     <mat-form-field appearance="outline">
         <mat-label>Nombre*</mat-label>
-        <input formControlName="nombre" matInput />
+        <input formControlName="name" matInput />
         <mat-error *ngIf="form.invalid">El campo nombre es requerido</mat-error>
     </mat-form-field>
 
@@ -10,6 +12,7 @@
         <app-mapa
         (coordenadaSeleccionada)="coordenadaSeleccionada($event)"
         [coordenadasIniciales]="coordenadaInicial"
+        [options]="options"
         >            
         </app-mapa>
     </div>
