@@ -1,8 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatTable } from '@angular/material/table';
+import { actorPeliculaDTO } from '../actor';
+import { ActoresService } from '../actores.service';
 
 @Component({
   selector: 'app-autocomplete-actores',
@@ -11,27 +13,28 @@ import { MatTable } from '@angular/material/table';
 })
 export class AutocompleteActoresComponent implements OnInit {
 
-  constructor() { }
+  constructor(private actorService: ActoresService) { }
 
   control: FormControl = new FormControl();
-  actores =  [{nombre: 'Tom Holland',personaje: '', foto: 'https://m.media-amazon.com/images/M/MV5BNzZiNTEyNTItYjNhMS00YjI2LWIwMWQtZmYwYTRlNjMyZTJjXkEyXkFqcGdeQXVyMTExNzQzMDE0._V1_UX214_CR0,0,214,317_AL_.jpg'},
-            {nombre: 'Tom Hanks',personaje: '', foto: 'https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg'},
-            {nombre: 'Leonardo DiCaprio',personaje: '', foto: 'https://m.media-amazon.com/images/M/MV5BMjI0MTg3MzI0M15BMl5BanBnXkFtZTcwMzQyODU2Mw@@._V1_UY317_CR10,0,214,317_AL_.jpg'}
-           ]
   
-  actoresOriginal = this.actores;
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = [];
 
-  actoresSeleccionados = [];
+  actoresAMostrar: actorPeliculaDTO[] = [];
 
   columnasAMostrar = ['imagen','nombre','personaje','acciones']
 
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
-    this.control.valueChanges.subscribe(valor => {
-        this.actores = this.actoresOriginal;
-        if(!valor.nombre)
-        this.actores = this.actores.filter(actor => actor.nombre.toLowerCase().indexOf(valor.toLowerCase()) !== -1);      
+    this.control.valueChanges.subscribe(nombre => {
+          if (typeof nombre === 'string' && nombre){
+            this.actorService.obtenerPorNombre(nombre)
+            .subscribe(actores => {
+              console.log(actores);
+              this.actoresAMostrar = actores;
+            });
+        }
     });
   }
 
@@ -44,7 +47,7 @@ export class AutocompleteActoresComponent implements OnInit {
   }
 
   eliminar(actor){
-    const indice = this.actoresSeleccionados.find(a => a.nombre === actor.nombre);
+    const indice = this.actoresSeleccionados.findIndex(a => a.name === actor.name);
     this.actoresSeleccionados.splice(indice,1);
     this.table.renderRows();
   }

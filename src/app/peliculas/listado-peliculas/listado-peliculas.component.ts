@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { peliculaDTO } from '../peliculas';
+import { PeliculasService } from '../peliculas.service';
 
 @Component({
   selector: 'app-listado-peliculas',
@@ -7,16 +9,24 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListadoPeliculasComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private peliculaService: PeliculasService
+  ) { }
   @Input()
-  peliculas;
+  peliculas: peliculaDTO[];
+
+  @Output()
+  borrado: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit(): void {
    
   }
 
-  remover(index: number) : void {
-    this.peliculas.splice(index,1);
+  eliminar(id: string) : void {
+    this.peliculaService.borrar(id)
+    .subscribe(() => {
+      this.borrado.emit();
+    });
   }
 
   setRating(voto: number) : void {

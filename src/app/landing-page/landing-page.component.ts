@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { peliculaDTO } from '../peliculas/peliculas';
+import { PeliculasService } from '../peliculas/peliculas.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,25 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor (
+    private peliculasService: PeliculasService
+  ) { }
 
-  peliculasCines;
-  ocultar = false;
-  peliculasEstrenos = [];
-
+  peliculasCines: peliculaDTO[]; 
+  peliculasEstrenos: peliculaDTO[];
+  
   ngOnInit(): void {
-    this.peliculasCines = [{
-      titulo: 'Spider-Man: No Way Home',
-      fecha: new Date('2021-12-17'),
-      precio: 4,
-      poster: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/cover_290x414/public/media/image/2021/03/spider-man-no-way-home-cartel-2262659.jpg?itok=rxEAFSVM'
-    },
-    {
-      titulo: 'Moana: Un mar de aventuras',
-      fecha: new Date(),
-      precio: 3,
-      poster: 'https://static.wikia.nocookie.net/disney/images/7/76/Moana_official_poster.jpg'
-    }];
+    this.cargarDatos();
   }
 
+  borrado(){
+    this.cargarDatos();
+  }
+
+  cargarDatos(){
+    this.peliculasService.obtenerLandingPage()
+    .subscribe(landingPage => {
+        this.peliculasCines = landingPage.inTheaters;
+        this.peliculasEstrenos = landingPage.moviePremiers;
+    });
+  } 
 }
