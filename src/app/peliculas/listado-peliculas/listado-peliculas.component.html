@@ -3,15 +3,20 @@
     <ng-container contenido>
         <div class="movies-container">
             <div *ngFor="let pelicula of peliculas; let index = index" class="movie-container">
-                <a>
+                <a  [routerLink]="'/peliculas/'+pelicula.id">
                     <img [src]="pelicula.poster" alt="Poster" />
                 </a>
                 <p>
-                    <a>{{pelicula.titulo}} </a>
+                    <a  [routerLink]="'/peliculas/'+pelicula.id">{{pelicula.title}} </a>
                 </p>
                 <div>
-                    <a mat-flat-button color="primary">Editar</a>
-                    <button mat-flat-button color="warn" type="button">Borrar</button>
+                    <a mat-flat-button color="primary" [routerLink]="'/peliculas/editar/'+pelicula.id">Editar</a>
+                    <button 
+                    mat-flat-button color="warn" 
+                    type="button"
+                    [swal]="{title: 'Confirmación', text: '¿Esta seguro que desea borrar esta pelicula?', showCancelButton:true}"
+                    (confirm)="eliminar(pelicula.id)"
+                    >Borrar</button>
                 </div>               
                 <app-rating (rated)="setRating($event)"></app-rating>
             </div>

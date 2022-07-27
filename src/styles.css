@@ -15,3 +15,7 @@ h2 {
 .tabla-indice a {
     margin-right: 1rem;
 }
+
+.leaflet-control, .leaflet-top, .leaflet-left {
+    z-index: 500 !important;
+}
