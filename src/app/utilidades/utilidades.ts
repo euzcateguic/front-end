@@ -13,7 +13,11 @@ export function parsearErroresAPI(response: any): string[] {
     if(response.error) {
         if(typeof response.error === 'string') {
             resultado.push(response.error);
-        } else {
+        } else if(Array.isArray(response.error)) 
+        {
+            response.error.forEach(valor => resultado.push(valor.description));
+        }
+        else {
             const mapaErrores = response.error.errors;
             const entradas = Object.entries(mapaErrores);
             entradas.forEach((arreglo: any[]) => {
