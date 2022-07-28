@@ -1,1 +1,3 @@
-<p>autorizado works!</p>
+<ng-content *ngIf="!isAuthenticate()" select="[noAutorizado]"></ng-content>
+
+<ng-content *ngIf="isAuthenticate()" select="[Autorizado]"></ng-content>
