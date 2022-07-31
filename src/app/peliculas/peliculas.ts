@@ -25,7 +25,9 @@ export interface peliculaDTO {
     poster: string,
     genres: generoDTO[],
     actors: actorPeliculaDTO[],
-    theaters: cineDTO[]
+    theaters: cineDTO[],
+    userVote: number;
+    average: number;
 }
 
 export interface  LandingPageDTO {

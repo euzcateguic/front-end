@@ -4,9 +4,11 @@
       <ng-content select="[cargando]"></ng-content>
     </span>
     <span *ngIf="!cargando.innerHTML.trim()">
-      <img src="https://img1.picmix.com/output/stamp/normal/8/5/2/9/509258_fb107.gif">
+      <!-- <img src="https://img1.picmix.com/output/stamp/normal/8/5/2/9/509258_fb107.gif"> -->
+      <mat-spinner></mat-spinner>
     </span>
   </div>
+  
   <div *ngIf="listado?.length === 0">
     <span #vacio>
       <ng-content select="[vacio]"></ng-content>

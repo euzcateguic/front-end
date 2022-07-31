@@ -2,7 +2,9 @@ import { Component, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { latLng, tileLayer } from 'leaflet';
+import { RatingService } from 'src/app/rating/rating.service';
 import { Coordenada, CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
+import Swal from 'sweetalert2';
 import { peliculaDTO } from '../peliculas';
 import { PeliculasService } from '../peliculas.service';
 
@@ -16,7 +18,8 @@ export class DetallePeliculaComponent implements OnInit {
   constructor(
     private peliculaService: PeliculasService,
     private activatedRoute: ActivatedRoute,
-    private  sanitizer: DomSanitizer
+    private  sanitizer: DomSanitizer,
+    private ratingService: RatingService
     ) { }
 
   pelicula: peliculaDTO;
@@ -67,5 +70,12 @@ export class DetallePeliculaComponent implements OnInit {
     }
 
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`);
+  }
+
+  rated(puntuacion: number) {
+    this.ratingService.rate(this.pelicula.id,puntuacion)
+    .subscribe(() => {
+      Swal.fire("Exitoso","Voto enviado",'success');
+    })
   }
 }
